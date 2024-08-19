@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "330722345048",
+    "project_id": "mgcandy-4b1b8",
+    "storage_bucket": "mgcandy-4b1b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330722345048:android:a510892383f5fd055c4a2d",
+        "android_client_info": {
+          "package_name": "com.mg.Candy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbIsaoxSpJPU4Qrp21A454FGFbgLnikYQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
