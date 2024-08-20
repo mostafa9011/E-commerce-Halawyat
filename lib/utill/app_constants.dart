@@ -13,7 +13,8 @@ class AppConstants {
   static const String bannerUri = '/api/v1/banners';
   static const String categoryUri = '/api/v1/categories';
   static const String parentsUri = '/api/v1/categories/partners'; //partners
-  static const String parentProductUri = '/api/v1/categories/partners/products/';//https://admin.mohamed-gamal-candy.com/api/v1/categories/partners/products/1 //partner products
+  static const String parentProductUri =
+      '/api/v1/categories/partners/products/'; //https://admin.mohamed-gamal-candy.com/api/v1/categories/partners/products/1 //partner products
   static const String subCategoryUri = '/api/v1/categories/childes/';
   static const String categoryProductUri = '/api/v1/categories/products/';
   static const String dailyItemUri = '/api/v1/products/daily-needs';
@@ -80,6 +81,9 @@ class AppConstants {
   static const String allProductList = '/api/v1/products/all';
   static const String imageBaseUrl =
       'https://admin.mohamed-gamal-candy.com/storage/app/public/category/';
+  static const String popupUrl = '/api/v1/popups';
+  static const String popupImage =
+      'https://admin.mohamed-gamal-candy.com/storage/app/public/popup/2024-08-19-66c34345866e7.png';
 
   //MESSAGING
   static const String getDeliveryManMessageUri =

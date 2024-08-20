@@ -135,11 +135,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                       padding: const EdgeInsets.all(
                                           Dimensions.paddingSizeExtraSmall),
                                       child: Text(
-                                        index != 7
-                                            ? categoryProvider
-                                                .categoryList![index].name!
-                                            : getTranslated(
-                                                'view_all', context),
+                                        categoryProvider
+                                            .categoryList![index].name!,
                                         style: poppinsRegular,
                                         textAlign: TextAlign.center,
                                         maxLines: 1,

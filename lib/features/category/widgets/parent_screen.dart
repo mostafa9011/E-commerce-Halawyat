@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../common/widgets/custom_app_bar_widget.dart';
@@ -64,9 +63,6 @@ class _ParentScreenState extends State<ParentScreen> {
                       crossAxisSpacing: 12,
                     ),
                     itemBuilder: (context, index) {
-                      log(categoryProvider.parentList![index].name ??
-                          'null name');
-
                       return ParentItem(
                         image: '${categoryProvider.parentList![index].image}',
                         title: categoryProvider.parentList![index].name!,

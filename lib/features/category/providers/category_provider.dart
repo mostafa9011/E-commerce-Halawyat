@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_grocery/common/models/api_response_model.dart';
 import 'package:flutter_grocery/common/models/product_model.dart';
@@ -36,10 +34,10 @@ class CategoryProvider extends ChangeNotifier {
   CategoryModel? get categoryModel => _categoryModel;
   int get selectCategory => _selectCategory;
 
-  ////////
+  /// parentList
   List<CategoryModel>? parentList;
   List<Product>? parentProductList;
-  bool? emptyProdcutList;
+  bool isLoading = true;
 
   Future<ApiResponseModel> getCategoryList(BuildContext context, bool reload,
       {int? id}) async {
@@ -151,23 +149,20 @@ class CategoryProvider extends ChangeNotifier {
 
   // parent products
   void getParentProductList(String parentId) async {
+    isLoading = true;
     parentProductList = [];
-    emptyProdcutList = null;
+    notifyListeners();
     ApiResponseModel apiResponse =
         await categoryRepo.getParentProductList(parentId);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
+      isLoading = false;
+      notifyListeners();
       apiResponse.response!.data.forEach(
         (product) => parentProductList!.add(
           Product.fromJson(product),
         ),
       );
-      if (parentProductList!.isEmpty) {
-        emptyProdcutList = true;
-      } else {
-        emptyProdcutList = false;
-      }
-      log(parentProductList![0].name ?? "null name");
     } else {
       ApiCheckerHelper.checkApi(apiResponse);
     }

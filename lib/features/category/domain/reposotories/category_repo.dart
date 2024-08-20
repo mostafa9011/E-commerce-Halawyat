@@ -49,7 +49,7 @@ class CategoryRepo {
   Future<ApiResponseModel> getParentProductList(String parentId) async {
     try {
       final response =
-          await dioClient.get('${AppConstants.parentProductUri}1');
+          await dioClient.get('${AppConstants.parentProductUri}$parentId');
       return ApiResponseModel.withSuccess(response);
     } catch (e) {
       return ApiResponseModel.withError(ApiErrorHandler.getMessage(e));

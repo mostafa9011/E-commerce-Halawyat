@@ -2,14 +2,14 @@ name: flutter_grocery
 description: A new Flutter application.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.2+2
+version: 1.0.3+3
 
 environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
   audioplayers: ^6.0.0
-  cached_network_image: ^3.2.3
+  cached_network_image: 3.3.1
   carousel_slider: ^5.0.0
   connectivity: ^3.0.6
   country_code_picker: 3.0.0

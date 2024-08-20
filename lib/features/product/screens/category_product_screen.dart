@@ -425,75 +425,78 @@ class CategoryProductScreen extends StatelessWidget {
                     : CustomScrollView(
                         slivers: [
                           SliverToBoxAdapter(
-                            child: productProvider.emptyProdcutList != null
-                                ? productProvider.emptyProdcutList == false
-                                    ? Center(
+                            //don't use ==null because can't be null
+                            child: productProvider.parentProductList!.isNotEmpty
+                                ? Center(
+                                    child: SizedBox(
+                                      width: Dimensions.webScreenWidth,
+                                      child: GridView.builder(
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisSpacing:
+                                              ResponsiveHelper.isDesktop(
+                                                      context)
+                                                  ? 13
+                                                  : 10,
+                                          mainAxisSpacing:
+                                              ResponsiveHelper.isDesktop(
+                                                      context)
+                                                  ? 13
+                                                  : 10,
+                                          childAspectRatio:
+                                              ResponsiveHelper.isDesktop(
+                                                      context)
+                                                  ? (1 / 1.4)
+                                                  : (1 / 1.8),
+                                          crossAxisCount:
+                                              ResponsiveHelper.isDesktop(
+                                                      context)
+                                                  ? 5
+                                                  : 2,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal:
+                                                Dimensions.paddingSizeSmall,
+                                            vertical:
+                                                Dimensions.paddingSizeSmall),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: productProvider
+                                            .parentProductList!.length,
+                                        shrinkWrap: true,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return ProductWidget(
+                                            product: productProvider
+                                                .parentProductList![index],
+                                            isCenter: true,
+                                            isGrid: true,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                : productProvider.isLoading
+                                    // shimmer
+                                    ? const Center(
                                         child: SizedBox(
                                           width: Dimensions.webScreenWidth,
-                                          child: GridView.builder(
-                                            gridDelegate:
-                                                SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisSpacing:
-                                                  ResponsiveHelper.isDesktop(
-                                                          context)
-                                                      ? 13
-                                                      : 10,
-                                              mainAxisSpacing:
-                                                  ResponsiveHelper.isDesktop(
-                                                          context)
-                                                      ? 13
-                                                      : 10,
-                                              childAspectRatio:
-                                                  ResponsiveHelper.isDesktop(
-                                                          context)
-                                                      ? (1 / 1.4)
-                                                      : (1 / 1.8),
-                                              crossAxisCount:
-                                                  ResponsiveHelper.isDesktop(
-                                                          context)
-                                                      ? 5
-                                                      : 2,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  Dimensions.paddingSizeSmall,
                                             ),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal:
-                                                    Dimensions.paddingSizeSmall,
-                                                vertical: Dimensions
-                                                    .paddingSizeSmall),
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemCount: productProvider
-                                                .parentProductList!.length,
-                                            shrinkWrap: true,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return ProductWidget(
-                                                product: productProvider
-                                                    .parentProductList![index],
-                                                isCenter: true,
-                                                isGrid: true,
-                                              );
-                                            },
+                                            child: _ProductShimmer(
+                                                isEnabled: true),
                                           ),
                                         ),
                                       )
-                                    : const CircularProgressIndicator()
-                                // NoDataWidget(
-                                //     isFooter: false,
-                                //     title: getTranslated(
-                                //         'not_product_found', context),
-                                //   )
-                                : const Center(
-                                    child: SizedBox(
-                                      width: Dimensions.webScreenWidth,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              Dimensions.paddingSizeSmall,
-                                        ),
-                                        child: _ProductShimmer(isEnabled: true),
+                                    //empty List
+                                    : NoDataWidget(
+                                        isFooter: false,
+                                        title: getTranslated(
+                                            'not_product_found', context),
                                       ),
-                                    ),
-                                  ),
                           ),
                           const FooterWebWidget(footerType: FooterType.sliver),
                         ],

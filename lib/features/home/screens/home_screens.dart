@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_grocery/common/enums/footer_type_enum.dart';
 import 'package:flutter_grocery/common/models/config_model.dart';
@@ -23,6 +24,7 @@ import 'package:flutter_grocery/localization/language_constraints.dart';
 import 'package:flutter_grocery/utill/dimensions.dart';
 import 'package:flutter_grocery/utill/product_type.dart';
 import 'package:provider/provider.dart';
+import '../../../utill/app_constants.dart';
 import '../../category/widgets/parent_screen.dart';
 import '../widgets/partners_widget.dart';
 
@@ -85,7 +87,7 @@ class HomeScreen extends StatefulWidget {
       flashDealProvider.getFlashDealProducts(1, isUpdate: false);
     }
 
-    ////
+    // Parent Category
     Provider.of<CategoryProvider>(context, listen: false).getParentList(
       context,
       reload,
@@ -97,9 +99,74 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController scrollController = ScrollController();
 
   @override
+  void initState() {
+    super.initState();
+    _initializeApp(); // Automatically call this function when the app starts
+  }
+
+  void _initializeApp() {
+    // Using addPostFrameCallback to show dialog after build is complete
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showImageDialog(context); // Show the pop-up with an image
+    });
+  }
+
+  void _showImageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        var mediaQuery = MediaQuery.of(context).size;
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: SizedBox(
+            height: mediaQuery.height * 0.6,
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CachedNetworkImage(
+                    imageUrl: AppConstants.popupImage,
+                    fit: BoxFit.fill,
+                    height: mediaQuery.height * 0.5,
+                    width: double.infinity,
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                  // child: Image.network(
+                  //   AppConstants.popupImage, // Replace with your image URL
+                  //   fit: BoxFit.fill,
+                  //   height: mediaQuery.height * 0.5,
+                  //   width: double.infinity,
+                  // ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     var categoryProvider = Provider.of<CategoryProvider>(context);
-
     return Consumer<SplashProvider>(builder: (context, splashProvider, child) {
       return RefreshIndicator(
         onRefresh: () async {

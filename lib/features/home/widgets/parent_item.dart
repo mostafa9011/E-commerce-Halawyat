@@ -1,11 +1,10 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../helper/route_helper.dart';
 import '../../../utill/app_constants.dart';
 import '../../../utill/dimensions.dart';
 import '../../../utill/styles.dart';
 import '../../category/providers/category_provider.dart';
-import '../../product/screens/category_product_screen.dart';
 
 class ParentItem extends StatelessWidget {
   const ParentItem({
@@ -25,28 +24,22 @@ class ParentItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         categoryProvider.categoryAllProductList = null;
-        log(parentId.toString());
+        // log(parentId.toString());
         categoryProvider.getParentProductList(parentId.toString());
 
-        // Navigator.of(context).pushNamed(
-        //   RouteHelper.getCategoryProductsRoute(
-        //     categoryId: parentId.toString(),
-        //     subCategory: title,
-        //   ),
-        // );
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return CategoryProductScreen(
+        Navigator.of(context).pushNamed(
+          RouteHelper.getCategoryProductsRoute(
             categoryId: parentId.toString(),
-            subCategoryName: title,
-          );
-        }));
+            subCategory: title,
+          ),
+        );
       },
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: CircleAvatar(
-              // backgroundColor: Colors.grey,
+              backgroundColor: Colors.transparent,
               backgroundImage:
                   NetworkImage('${AppConstants.imageBaseUrl}$image'),
               radius: 40,
