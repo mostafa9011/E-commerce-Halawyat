@@ -17,7 +17,7 @@ import 'package:flutter_grocery/utill/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
-class CategoryProductScreen extends StatelessWidget {
+class CategoryProductScreen extends StatefulWidget {
   final String categoryId;
   final String? subCategoryName;
   const CategoryProductScreen({
@@ -25,6 +25,29 @@ class CategoryProductScreen extends StatelessWidget {
     required this.categoryId,
     this.subCategoryName,
   }) : super(key: key);
+
+  @override
+  State<CategoryProductScreen> createState() => _CategoryProductScreenState();
+}
+
+class _CategoryProductScreenState extends State<CategoryProductScreen> {
+  void _loadData(BuildContext context) async {
+    final CategoryProvider categoryProvider =
+        Provider.of<CategoryProvider>(context, listen: false);
+    if (categoryProvider.parentProductList == null &&
+        categoryProvider.categoryAllProductList == null) {
+      categoryProvider.getCategory(int.tryParse(widget.categoryId), context);
+
+      categoryProvider.getSubCategoryList(context, widget.categoryId);
+      categoryProvider.initCategoryProductList(widget.categoryId);
+    }
+  }
+
+  @override
+  void initState() {
+    _loadData(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +68,7 @@ class CategoryProductScreen extends StatelessWidget {
     //     Provider.of<CategoryProvider>(context, listen: false);
 
     String appBarText = 'Sub Categories';
-    appBarText = subCategoryName ?? appBarText;
+    appBarText = widget.subCategoryName ?? appBarText;
     // if (widget.subCategoryName != null && widget.subCategoryName != 'null') {
     //   appBarText = widget.subCategoryName ?? appBarText;
     // } else {
@@ -104,7 +127,7 @@ class CategoryProductScreen extends StatelessWidget {
                                                             -1);
                                                     productProvider
                                                         .initCategoryProductList(
-                                                            categoryId);
+                                                            widget.categoryId);
                                                   },
                                                   hoverColor:
                                                       Colors.transparent,

@@ -70,7 +70,7 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
             )) as PreferredSizeWidget?,
       body: Consumer<CategoryProvider>(
         builder: (context, categoryProvider, child) {
-          return categoryProvider.subCategoryList != null
+          return categoryProvider.subcategoryLoding == false
               ? categoryProvider.subCategoryList!.isNotEmpty
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height,

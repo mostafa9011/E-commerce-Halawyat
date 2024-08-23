@@ -30,6 +30,7 @@ class CategoryProvider extends ChangeNotifier {
   int get selectedCategoryIndex => _selectedCategoryIndex;
   List<CategoryModel>? get categoryList => _categoryList;
   List<CategoryModel>? get subCategoryList => _subCategoryList;
+  bool subcategoryLoding = true;
   // List<Product> get categoryProductList => _categoryProductList;
   CategoryModel? get categoryModel => _categoryModel;
   int get selectCategory => _selectCategory;
@@ -74,12 +75,16 @@ class CategoryProvider extends ChangeNotifier {
   }
 
   void getSubCategoryList(BuildContext context, String categoryID) async {
-    _subCategoryList = null;
+    _subCategoryList = [];
+    subcategoryLoding = true;
+    notifyListeners();
 
     ApiResponseModel apiResponse =
         await categoryRepo.getSubCategoryList(categoryID);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
+      subcategoryLoding = false;
+      notifyListeners();
       _subCategoryList = [];
       apiResponse.response!.data.forEach((category) =>
           _subCategoryList!.add(CategoryModel.fromJson(category)));

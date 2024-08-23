@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_grocery/features/category/domain/models/category_model.dart';
 import 'package:flutter_grocery/features/home/widgets/category_page_widget.dart';
@@ -66,9 +68,13 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                             return Center(
                               child: InkWell(
                                 onTap: () {
+                                  log('category id: ${category.id}');
                                   categoryProvider.parentProductList = null;
                                   categoryProvider.getSubCategoryList(
-                                      context, category.id.toString());
+                                    context,
+                                    category.id.toString(),
+                                  );
+
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
