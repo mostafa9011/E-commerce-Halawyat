@@ -11,7 +11,6 @@ import 'package:flutter_grocery/helper/route_helper.dart';
 import 'package:flutter_grocery/utill/app_constants.dart';
 import 'package:flutter_grocery/utill/dimensions.dart';
 import 'package:flutter_grocery/utill/images.dart';
-import 'package:flutter_grocery/utill/styles.dart';
 import 'package:flutter_grocery/features/onboarding/screens/on_boarding_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -108,15 +107,15 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Image.asset(Images.appLogo, height: 130, width: 500),
+          Image.asset(Images.appLogo, height: 300, width: double.infinity),
           const SizedBox(height: Dimensions.paddingSizeSmall),
 
-          Text(AppConstants.appName,
-              textAlign: TextAlign.center,
-              style: poppinsMedium.copyWith(
-                color: Theme.of(context).primaryColor,
-                fontSize: 30,
-              )),
+          // Text(AppConstants.appName,
+          //     textAlign: TextAlign.center,
+          //     style: poppinsMedium.copyWith(
+          //       color: Theme.of(context).primaryColor,
+          //       fontSize: 30,
+          //     )),
         ],
       ),
     );
