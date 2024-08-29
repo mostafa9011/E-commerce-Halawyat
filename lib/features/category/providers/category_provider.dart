@@ -38,7 +38,7 @@ class CategoryProvider extends ChangeNotifier {
   /// parentList
   List<CategoryModel>? parentList;
   List<Product>? parentProductList;
-  bool isLoading = true;
+  bool isParentProductLoading = true;
 
   Future<ApiResponseModel> getCategoryList(BuildContext context, bool reload,
       {int? id}) async {
@@ -77,7 +77,9 @@ class CategoryProvider extends ChangeNotifier {
   void getSubCategoryList(BuildContext context, String categoryID) async {
     _subCategoryList = [];
     subcategoryLoding = true;
-    notifyListeners();
+    if (subcategoryLoding == false) {
+      notifyListeners();
+    }
 
     ApiResponseModel apiResponse =
         await categoryRepo.getSubCategoryList(categoryID);
@@ -154,14 +156,16 @@ class CategoryProvider extends ChangeNotifier {
 
   // parent products
   void getParentProductList(String parentId) async {
-    isLoading = true;
+    isParentProductLoading = true;
     parentProductList = [];
-    notifyListeners();
+    if (isParentProductLoading == false) {
+      notifyListeners();
+    }
     ApiResponseModel apiResponse =
         await categoryRepo.getParentProductList(parentId);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
-      isLoading = false;
+      isParentProductLoading = false;
       notifyListeners();
       apiResponse.response!.data.forEach(
         (product) => parentProductList!.add(

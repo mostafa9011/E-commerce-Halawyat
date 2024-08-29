@@ -499,7 +499,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                       ),
                                     ),
                                   )
-                                : productProvider.isLoading
+                                : productProvider.isParentProductLoading
                                     // shimmer
                                     ? const Center(
                                         child: SizedBox(
