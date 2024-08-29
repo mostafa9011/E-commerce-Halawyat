@@ -32,7 +32,7 @@ class ConfigModel {
   SocialStatus? _socialLoginStatus;
   double? _loyaltyPointItemPurchasePoint;
   bool? _loyaltyPointStatus;
-  double?  _loyaltyPointMinimumPoint;
+  double? _loyaltyPointMinimumPoint;
   double? _loyaltyPointExchangeRate;
   bool? _referEarningStatus;
   bool? _walletStatus;
@@ -69,85 +69,78 @@ class ConfigModel {
   CustomerVerification? _customerVerification;
   bool? _orderImageStatus;
   String? _orderImageLabelName;
-
-
-
-
-
-
+  int? _isPopup;
 
   ConfigModel(
       {String? ecommerceName,
-        String? ecommerceLogo,
-        String? ecommerceAddress,
-        String? ecommercePhone,
-        String? ecommerceEmail,
-        EcommerceLocationCoverage? ecommerceLocationCoverage,
-        double? minimumOrderValue,
-        int? selfPickup,
-        BaseUrls? baseUrls,
-        String? currencySymbol,
-        double? deliveryCharge,
-        bool? cashOnDelivery,
-        String? digitalPayment,
-        List<Branches>? branches,
-        String? termsAndConditions,
-        bool? emailVerification,
-        bool? phoneVerification,
-        String? currencySymbolPosition,
-        bool? maintenanceMode,
-        String? country,
-        DeliveryManagement? deliveryManagement,
-        PlayStoreConfig? playStoreConfig,
-        AppStoreConfig? appStoreConfig,
-        List<SocialMediaLink>? socialMediaLink,
-        String? footerCopyright,
-        int? decimalPointSettings,
-        String? timeFormat,
-        String? faq,
-        SocialStatus? socialLoginStatus,
-        double? loyaltyPointItemPurchasePoint,
-        bool? loyaltyPointStatus,
-        double? loyaltyPointMinimumPoint,
-        double? loyaltyPointExchangeRate,
-        bool? referEarningStatus,
-        bool? walletStatus,
-        Whatsapp? whatsapp,
-        CookiesManagement? cookiesManagement,
-        bool? offlinePayment,
-        double? freeDeliveryOverAmount,
-        bool? freeDeliveryStatus,
-        bool? isVatTexInclude,
-        String? cancellationPolicy,
-        String? returnPolicy,
-        String? refundPolicy,
-        Telegram? telegram,
-        Messenger? messenger,
-        bool? featuredProductStatus,
-        bool? trendingProductStatus,
-        bool? mostReviewedProductStatus,
-        bool? recommendedProductStatus,
-        bool? maxAmountCodStatus,
-        double? maxOrderForCODAmount,
-        bool? flashDealProductStatus,
-        bool? returnPolicyStatus,
-        bool? refundPolicyStatus,
-        bool? cancellationPolicyStatus,
-        int? otpResendTime,
-        bool? isGuestCheckout,
-        List<PaymentMethod>? activePaymentMethodList,
-        bool? isOfflinePayment,
-        bool? isPartialPayment,
-        bool? isAddFundToWallet,
-        String? partialPaymentCombineWith,
-        AppleLogin? appleLogin,
-        bool? isFirebaseOTPVerification,
-        CustomerVerification? customerVerification,
-        bool? orderImageStatus,
-        String? orderImageLabelName,
-
-
-      }) {
+      String? ecommerceLogo,
+      String? ecommerceAddress,
+      String? ecommercePhone,
+      String? ecommerceEmail,
+      EcommerceLocationCoverage? ecommerceLocationCoverage,
+      double? minimumOrderValue,
+      int? selfPickup,
+      BaseUrls? baseUrls,
+      String? currencySymbol,
+      double? deliveryCharge,
+      bool? cashOnDelivery,
+      String? digitalPayment,
+      List<Branches>? branches,
+      String? termsAndConditions,
+      bool? emailVerification,
+      bool? phoneVerification,
+      String? currencySymbolPosition,
+      bool? maintenanceMode,
+      String? country,
+      DeliveryManagement? deliveryManagement,
+      PlayStoreConfig? playStoreConfig,
+      AppStoreConfig? appStoreConfig,
+      List<SocialMediaLink>? socialMediaLink,
+      String? footerCopyright,
+      int? decimalPointSettings,
+      String? timeFormat,
+      String? faq,
+      SocialStatus? socialLoginStatus,
+      double? loyaltyPointItemPurchasePoint,
+      bool? loyaltyPointStatus,
+      double? loyaltyPointMinimumPoint,
+      double? loyaltyPointExchangeRate,
+      bool? referEarningStatus,
+      bool? walletStatus,
+      Whatsapp? whatsapp,
+      CookiesManagement? cookiesManagement,
+      bool? offlinePayment,
+      double? freeDeliveryOverAmount,
+      bool? freeDeliveryStatus,
+      bool? isVatTexInclude,
+      String? cancellationPolicy,
+      String? returnPolicy,
+      String? refundPolicy,
+      Telegram? telegram,
+      Messenger? messenger,
+      bool? featuredProductStatus,
+      bool? trendingProductStatus,
+      bool? mostReviewedProductStatus,
+      bool? recommendedProductStatus,
+      bool? maxAmountCodStatus,
+      double? maxOrderForCODAmount,
+      bool? flashDealProductStatus,
+      bool? returnPolicyStatus,
+      bool? refundPolicyStatus,
+      bool? cancellationPolicyStatus,
+      int? otpResendTime,
+      bool? isGuestCheckout,
+      List<PaymentMethod>? activePaymentMethodList,
+      bool? isOfflinePayment,
+      bool? isPartialPayment,
+      bool? isAddFundToWallet,
+      String? partialPaymentCombineWith,
+      AppleLogin? appleLogin,
+      bool? isFirebaseOTPVerification,
+      CustomerVerification? customerVerification,
+      bool? orderImageStatus,
+      String? orderImageLabelName,
+      int? isPopup}) {
     _ecommerceName = ecommerceName;
     _ecommerceLogo = ecommerceLogo;
     _ecommerceAddress = ecommerceAddress;
@@ -218,8 +211,7 @@ class ConfigModel {
     _customerVerification = customerVerification;
     _orderImageStatus = orderImageStatus;
     _orderImageLabelName = orderImageLabelName;
-
-
+    _isPopup = isPopup;
   }
 
   String? get ecommerceName => _ecommerceName;
@@ -227,7 +219,8 @@ class ConfigModel {
   String? get ecommerceAddress => _ecommerceAddress;
   String? get ecommercePhone => _ecommercePhone;
   String? get ecommerceEmail => _ecommerceEmail;
-  EcommerceLocationCoverage? get ecommerceLocationCoverage => _ecommerceLocationCoverage;
+  EcommerceLocationCoverage? get ecommerceLocationCoverage =>
+      _ecommerceLocationCoverage;
   double? get minimumOrderValue => _minimumOrderValue;
   int? get selfPickup => _selfPickup;
   BaseUrls? get baseUrls => _baseUrls;
@@ -237,8 +230,8 @@ class ConfigModel {
   String? get digitalPayment => _digitalPayment;
   List<Branches>? get branches => _branches;
   String? get termsAndConditions => _termsAndConditions;
-  String? get aboutUs=> _aboutUs;
-  String? get privacyPolicy=> _privacyPolicy;
+  String? get aboutUs => _aboutUs;
+  String? get privacyPolicy => _privacyPolicy;
   bool? get emailVerification => _emailVerification;
   bool? get phoneVerification => _phoneVerification;
   String? get currencySymbolPosition => _currencySymbolPosition;
@@ -292,12 +285,10 @@ class ConfigModel {
   CustomerVerification? get customerVerification => _customerVerification;
   bool? get orderImageStatus => _orderImageStatus;
   String? get orderImageLabelName => _orderImageLabelName;
-
-
-
-
+  int? get isPopup => _isPopup;
 
   ConfigModel.fromJson(Map<String, dynamic> json) {
+    _isPopup = json['is_popup'];
     _ecommerceName = json['ecommerce_name'];
     _ecommerceLogo = json['ecommerce_logo'];
     _ecommerceAddress = json['ecommerce_address'];
@@ -305,13 +296,12 @@ class ConfigModel {
     _ecommerceEmail = json['ecommerce_email'];
     _ecommerceLocationCoverage = json['ecommerce_location_coverage'] != null
         ? EcommerceLocationCoverage.fromJson(
-        json['ecommerce_location_coverage'])
+            json['ecommerce_location_coverage'])
         : null;
     _minimumOrderValue = json['minimum_order_value'].toDouble();
     _selfPickup = json['self_pickup'];
-    _baseUrls = json['base_urls'] != null
-        ? BaseUrls.fromJson(json['base_urls'])
-        : null;
+    _baseUrls =
+        json['base_urls'] != null ? BaseUrls.fromJson(json['base_urls']) : null;
     _currencySymbol = json['currency_symbol'];
     _deliveryCharge = double.parse('${json['delivery_charge']}');
     _cashOnDelivery = '${json['cash_on_delivery']}'.contains('true');
@@ -345,54 +335,68 @@ class ConfigModel {
         _socialMediaLink!.add(SocialMediaLink.fromJson(v));
       });
     }
-    if(json['footer_text']!=null){
+    if (json['footer_text'] != null) {
       _footerCopyright = json['footer_text'];
     }
-    try{
-      _decimalPointSettings = int.parse(json['decimal_point_settings'].toString());
-      _timeFormat =  json['time_format'] ?? 12 as String?;
-    }catch(e){
+    try {
+      _decimalPointSettings =
+          int.parse(json['decimal_point_settings'].toString());
+      _timeFormat = json['time_format'] ?? 12 as String?;
+    } catch (e) {
       _decimalPointSettings = 1;
       _timeFormat = '24';
-
     }
     _faq = json['faq'] ?? '';
-    _socialLoginStatus = SocialStatus.fromJson(json['social_login']) ;
+    _socialLoginStatus = SocialStatus.fromJson(json['social_login']);
 
-    _loyaltyPointItemPurchasePoint = double.tryParse('${json['loyalty_point_item_purchase_point']}');
-    _loyaltyPointMinimumPoint = double.tryParse('${json['loyalty_point_minimum_point']}');
-    _loyaltyPointExchangeRate = double.tryParse('${json['loyalty_point_exchange_rate']}');
+    _loyaltyPointItemPurchasePoint =
+        double.tryParse('${json['loyalty_point_item_purchase_point']}');
+    _loyaltyPointMinimumPoint =
+        double.tryParse('${json['loyalty_point_minimum_point']}');
+    _loyaltyPointExchangeRate =
+        double.tryParse('${json['loyalty_point_exchange_rate']}');
     _referEarningStatus = '${json['ref_earning_status']}'.contains('1');
     _loyaltyPointStatus = '${json['loyalty_point_status']}'.contains('1');
     _walletStatus = '${json['wallet_status']}'.contains('1');
-
 
     _cookiesManagement = json['cookies_management'] != null
         ? CookiesManagement.fromJson(json['cookies_management'])
         : null;
 
     _offlinePayment = '${json['offline_payment']}' == 'true';
-    _freeDeliveryOverAmount = double.tryParse('${json['free_delivery_over_amount']}');
-    _maxOrderForCODAmount = double.tryParse('${json['maximum_amount_for_cod_order']}');
-    _maxAmountCodStatus = '${json['maximum_amount_for_cod_order_status']}'.contains('1');
-    _freeDeliveryStatus = '${json['free_delivery_over_amount_status']}'.contains('1');
+    _freeDeliveryOverAmount =
+        double.tryParse('${json['free_delivery_over_amount']}');
+    _maxOrderForCODAmount =
+        double.tryParse('${json['maximum_amount_for_cod_order']}');
+    _maxAmountCodStatus =
+        '${json['maximum_amount_for_cod_order_status']}'.contains('1');
+    _freeDeliveryStatus =
+        '${json['free_delivery_over_amount_status']}'.contains('1');
     _isVatTexInclude = '${json['product_vat_tax_status']}' == 'included';
-    _returnPolicy =  '${json['return_policy']}';
-    _refundPolicy =  '${json['refund_policy']}';
+    _returnPolicy = '${json['return_policy']}';
+    _refundPolicy = '${json['refund_policy']}';
     _cancellationPolicy = '${json['cancellation_policy']}';
-    _telegram = json['telegram'] != null ? Telegram.fromJson(json['telegram']) : null;
-    _messenger = json['messenger'] != null ? Messenger.fromJson(json['messenger']) : null;
-    _whatsapp = json['whatsapp'] != null ? Whatsapp.fromJson(json['whatsapp']) : null;
+    _telegram =
+        json['telegram'] != null ? Telegram.fromJson(json['telegram']) : null;
+    _messenger = json['messenger'] != null
+        ? Messenger.fromJson(json['messenger'])
+        : null;
+    _whatsapp =
+        json['whatsapp'] != null ? Whatsapp.fromJson(json['whatsapp']) : null;
 
-    _featuredProductStatus =  '${json['featured_product_status']}'.contains('1');
-    _trendingProductStatus =  '${json['trending_product_status']}'.contains('1');
-    _mostReviewedProductStatus =  '${json['most_reviewed_product_status']}'.contains('1');
-    _recommendedProductStatus =  '${json['recommended_product_status']}'.contains('1');
-    _flashDealProductStatus = '${json['flash_deal_product_status']}'.contains('1');
-    _cancellationPolicyStatus =  '${json['cancellation_policy_status']}'.contains('1');
-    _refundPolicyStatus =  '${json['refund_policy_status']}'.contains('1');
-    _returnPolicyStatus =  '${json['return_policy_status']}'.contains('1');
-    _otpResendTime =  int.tryParse('${json['otp_resend_time']}');
+    _featuredProductStatus = '${json['featured_product_status']}'.contains('1');
+    _trendingProductStatus = '${json['trending_product_status']}'.contains('1');
+    _mostReviewedProductStatus =
+        '${json['most_reviewed_product_status']}'.contains('1');
+    _recommendedProductStatus =
+        '${json['recommended_product_status']}'.contains('1');
+    _flashDealProductStatus =
+        '${json['flash_deal_product_status']}'.contains('1');
+    _cancellationPolicyStatus =
+        '${json['cancellation_policy_status']}'.contains('1');
+    _refundPolicyStatus = '${json['refund_policy_status']}'.contains('1');
+    _returnPolicyStatus = '${json['return_policy_status']}'.contains('1');
+    _otpResendTime = int.tryParse('${json['otp_resend_time']}');
     _isGuestCheckout = '${json['guest_checkout']}'.contains('1');
     if (json['active_payment_method_list'] != null) {
       _activePaymentMethodList = <PaymentMethod>[];
@@ -406,11 +410,12 @@ class ConfigModel {
     _isAddFundToWallet = '${json['add_fund_to_wallet']}'.contains('1');
     _partialPaymentCombineWith = json['partial_payment_combine_with'];
     _appleLogin = AppleLogin.fromJson(json['apple_login']);
-    _isFirebaseOTPVerification = '${json['firebase_otp_verification_status']}'.contains('1');
-    _customerVerification = CustomerVerification.fromJson(json['customer_verification']);
+    _isFirebaseOTPVerification =
+        '${json['firebase_otp_verification_status']}'.contains('1');
+    _customerVerification =
+        CustomerVerification.fromJson(json['customer_verification']);
     _orderImageStatus = '${json['order_image_status']}'.contains('1');
     _orderImageLabelName = json['order_image_label_name'];
-
   }
 
   Map<String, dynamic> toJson() {
@@ -470,6 +475,7 @@ class ConfigModel {
     data['product_vat_tax_status'] = _isVatTexInclude;
     data['otp_resend_time'] = _otpResendTime;
     data['customer_verification'] = _customerVerification?.toJson();
+
     return data;
   }
 }
@@ -479,7 +485,8 @@ class EcommerceLocationCoverage {
   String? _latitude;
   double? _coverage;
 
-  EcommerceLocationCoverage({String? longitude, String? latitude, double? coverage}) {
+  EcommerceLocationCoverage(
+      {String? longitude, String? latitude, double? coverage}) {
     _longitude = longitude;
     _latitude = latitude;
     _coverage = coverage;
@@ -504,28 +511,28 @@ class EcommerceLocationCoverage {
   }
 }
 
-class PlayStoreConfig{
+class PlayStoreConfig {
   bool? _status;
   String? _link;
   double? _minVersion;
 
-  PlayStoreConfig({bool? status, String? link, double? minVersion}){
+  PlayStoreConfig({bool? status, String? link, double? minVersion}) {
     _status = status;
     _link = link;
     _minVersion = minVersion;
   }
   bool? get status => _status;
   String? get link => _link;
-  double? get minVersion =>_minVersion;
+  double? get minVersion => _minVersion;
 
   PlayStoreConfig.fromJson(Map<String, dynamic> json) {
     _status = json['status'];
-    if(json['link']!=null){
+    if (json['link'] != null) {
       _link = json['link'];
     }
-    if(json['min_version']!=null && json['min_version']!='' ){
+    if (json['min_version'] != null && json['min_version'] != '') {
       _minVersion = double.parse(json['min_version'].toString());
-    }else{
+    } else {
       _minVersion = 0;
     }
   }
@@ -539,12 +546,12 @@ class PlayStoreConfig{
   }
 }
 
-class AppStoreConfig{
+class AppStoreConfig {
   bool? _status;
   String? _link;
   double? _minVersion;
 
-  AppStoreConfig({bool? status, String? link, double? minVersion}){
+  AppStoreConfig({bool? status, String? link, double? minVersion}) {
     _status = status;
     _link = link;
     _minVersion = minVersion;
@@ -552,20 +559,18 @@ class AppStoreConfig{
 
   bool? get status => _status;
   String? get link => _link;
-  double? get minVersion =>_minVersion;
-
+  double? get minVersion => _minVersion;
 
   AppStoreConfig.fromJson(Map<String, dynamic> json) {
     _status = json['status'];
-    if(json['link']!=null){
+    if (json['link'] != null) {
       _link = json['link'];
     }
-    if(json['min_version'] !=null  && json['min_version']!=''){
+    if (json['min_version'] != null && json['min_version'] != '') {
       _minVersion = double.parse(json['min_version'].toString());
-    }else{
+    } else {
       _minVersion = 0;
     }
-
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -645,7 +650,7 @@ class BaseUrls {
   }
 }
 
-class SocialMediaLink{
+class SocialMediaLink {
   int? _id;
   String? _name;
   String? _link;
@@ -653,7 +658,13 @@ class SocialMediaLink{
   String? _createdAt;
   String? _updatedAt;
 
-  SocialMediaLink({int? id, String? name, String? link, int? status, String? createdAt, String? updatedAt}){
+  SocialMediaLink(
+      {int? id,
+      String? name,
+      String? link,
+      int? status,
+      String? createdAt,
+      String? updatedAt}) {
     _id = id;
     _name = name;
     _link = link;
@@ -675,7 +686,6 @@ class SocialMediaLink{
     _status = json['status'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -687,7 +697,6 @@ class SocialMediaLink{
     data['updated_at'] = _updatedAt;
     return data;
   }
-
 }
 
 class Branches {
@@ -701,12 +710,12 @@ class Branches {
 
   Branches(
       {int? id,
-        String? name,
-        String? email,
-        String? longitude,
-        String? latitude,
-        String? address,
-        double? coverage}) {
+      String? name,
+      String? email,
+      String? longitude,
+      String? latitude,
+      String? address,
+      double? coverage}) {
     _id = id;
     _name = name;
     _email = email;
@@ -778,16 +787,16 @@ class DeliveryManagement {
   }
 }
 
-class SocialStatus{
+class SocialStatus {
   bool? isGoogle;
   bool? isFacebook;
 
   SocialStatus(this.isGoogle, this.isFacebook);
 
- SocialStatus.fromJson(Map<String, dynamic> json){
-   isGoogle = '${json['google']}' == '1';
-   isFacebook = '${json['facebook']}' == '1';
- }
+  SocialStatus.fromJson(Map<String, dynamic> json) {
+    isGoogle = '${json['google']}' == '1';
+    isFacebook = '${json['facebook']}' == '1';
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -854,7 +863,6 @@ class Messenger {
   }
 }
 
-
 class CookiesManagement {
   bool? status;
   String? content;
@@ -882,7 +890,7 @@ class PaymentMethod {
 
   PaymentMethod({this.getWay, this.getWayTitle, this.getWayImage, this.type});
 
-  PaymentMethod copyWith(String type){
+  PaymentMethod copyWith(String type) {
     this.type = type;
     return this;
   }
@@ -925,7 +933,7 @@ class AppleLogin {
   }
 }
 
-class CustomerVerification{
+class CustomerVerification {
   bool? status;
   String? type;
 

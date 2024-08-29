@@ -82,8 +82,8 @@ class AppConstants {
   static const String imageBaseUrl =
       'https://admin.mohamed-gamal-candy.com/storage/app/public/category/';
   static const String popupUrl = '/api/v1/popups';
-  static const String popupImage =
-      'https://admin.mohamed-gamal-candy.com/storage/app/public/popup/2024-08-19-66c34345866e7.png';
+  static const String popupImageBasUrl =
+      'https://admin.mohamed-gamal-candy.com/storage/app/public/popup/';
 
   //MESSAGING
   static const String getDeliveryManMessageUri =

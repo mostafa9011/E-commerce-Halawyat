@@ -107,11 +107,20 @@ class _HomeScreenState extends State<HomeScreen> {
   void _initializeApp() {
     // Using addPostFrameCallback to show dialog after build is complete
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showImageDialog(context); // Show the pop-up with an image
+      String? popupImage =
+          Provider.of<SplashProvider>(context, listen: false).popupModel!.image;
+
+      int popup = Provider.of<SplashProvider>(context, listen: false)
+          .configModel!
+          .isPopup!;
+
+      if (popup == 1) {
+        _showImageDialog(context, popupImage); // Show the pop-up with an image
+      }
     });
   }
 
-  void _showImageDialog(BuildContext context) {
+  void _showImageDialog(BuildContext context, String? popupImage) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -129,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: CachedNetworkImage(
-                    imageUrl: AppConstants.popupImage,
+                    imageUrl: '${AppConstants.popupImageBasUrl}$popupImage',
                     fit: BoxFit.fill,
                     height: mediaQuery.height * 0.5,
                     width: double.infinity,

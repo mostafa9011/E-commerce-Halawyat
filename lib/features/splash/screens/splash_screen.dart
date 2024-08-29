@@ -35,12 +35,18 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     bool firstTime = true;
-    _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
-      final result = results.isNotEmpty ? results.first : ConnectivityResult.none;
+    _onConnectivityChanged = Connectivity()
+        .onConnectivityChanged
+        .listen((List<ConnectivityResult> results) {
+      final result =
+          results.isNotEmpty ? results.first : ConnectivityResult.none;
 
       if (!firstTime) {
-        bool isNotConnected = result != ConnectivityResult.wifi && result != ConnectivityResult.mobile;
-        isNotConnected ? const SizedBox() : ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        bool isNotConnected = result != ConnectivityResult.wifi &&
+            result != ConnectivityResult.mobile;
+        isNotConnected
+            ? const SizedBox()
+            : ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
@@ -59,34 +65,51 @@ class _SplashScreenState extends State<SplashScreen> {
     Provider.of<SplashProvider>(context, listen: false).initSharedData();
     Provider.of<CartProvider>(context, listen: false).getCartData();
     _route();
+
+    Provider.of<SplashProvider>(context, listen: false).getpopupImage();
   }
 
   void _route() {
-    final SplashProvider splashProvider = Provider.of<SplashProvider>(context, listen: false);
+    final SplashProvider splashProvider =
+        Provider.of<SplashProvider>(context, listen: false);
     splashProvider.initConfig().then((bool isSuccess) {
       if (isSuccess) {
         Timer(const Duration(seconds: 1), () async {
           double minimumVersion = 0.0;
           if (Platform.isAndroid) {
-            if (splashProvider.configModel?.playStoreConfig?.minVersion != null) {
-              minimumVersion = splashProvider.configModel?.playStoreConfig?.minVersion ?? AppConstants.appVersion;
+            if (splashProvider.configModel?.playStoreConfig?.minVersion !=
+                null) {
+              minimumVersion =
+                  splashProvider.configModel?.playStoreConfig?.minVersion ??
+                      AppConstants.appVersion;
             }
           } else if (Platform.isIOS) {
-            if (splashProvider.configModel?.appStoreConfig?.minVersion != null) {
-              minimumVersion = splashProvider.configModel?.appStoreConfig?.minVersion ?? AppConstants.appVersion;
+            if (splashProvider.configModel?.appStoreConfig?.minVersion !=
+                null) {
+              minimumVersion =
+                  splashProvider.configModel?.appStoreConfig?.minVersion ??
+                      AppConstants.appVersion;
             }
           }
-          if (AppConstants.appVersion < minimumVersion && !ResponsiveHelper.isWeb()) {
-            Navigator.pushNamedAndRemoveUntil(context, RouteHelper.getUpdateRoute(), (route) => false);
+          if (AppConstants.appVersion < minimumVersion &&
+              !ResponsiveHelper.isWeb()) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, RouteHelper.getUpdateRoute(), (route) => false);
           } else {
-            if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+            if (Provider.of<AuthProvider>(context, listen: false)
+                .isLoggedIn()) {
               Provider.of<AuthProvider>(context, listen: false).updateToken();
-              Navigator.of(context).pushNamedAndRemoveUntil(RouteHelper.menu, (route) => false);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(RouteHelper.menu, (route) => false);
             } else {
-              if (Provider.of<SplashProvider>(context, listen: false).showIntro()) {
-                Navigator.pushNamedAndRemoveUntil(context, RouteHelper.onBoarding, (route) => false, arguments: OnBoardingScreen());
+              if (Provider.of<SplashProvider>(context, listen: false)
+                  .showIntro()) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, RouteHelper.onBoarding, (route) => false,
+                    arguments: OnBoardingScreen());
               } else {
-                Navigator.of(context).pushNamedAndRemoveUntil(RouteHelper.login, (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteHelper.login, (route) => false);
               }
             }
           }
