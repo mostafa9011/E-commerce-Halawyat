@@ -18,7 +18,6 @@ import 'package:flutter_grocery/helper/custom_snackbar_helper.dart';
 import 'package:flutter_grocery/common/widgets/custom_text_field_widget.dart';
 import 'package:flutter_grocery/common/widgets/footer_web_widget.dart';
 import 'package:flutter_grocery/features/auth/widgets/country_code_picker_widget.dart';
-import 'package:flutter_grocery/features/auth/screens/forgot_password_screen.dart';
 import 'package:flutter_grocery/common/widgets/web_app_bar_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -349,8 +348,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             // const SizedBox(width: Dimensions.paddingSizeSmall),
                             Text(
                               getTranslated('signup', context),
-                              style: poppinsMedium.copyWith(
-                                fontSize: Dimensions.fontSizeSmall,
+                              style: poppinsSemiBold.copyWith(
+                                fontSize: Dimensions.fontSizeExtraLarge,
                                 color: Theme.of(context)
                                     .primaryColor
                                     .withOpacity(0.6),
@@ -359,7 +358,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       // InkWell(

@@ -88,6 +88,7 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                         itemBuilder: (context, index) {
                           return SubCategoryWidget(
                             index: index,
+                            categorId: widget.categoryId,
                             image:
                                 '${AppConstants.imageBaseUrl}${categoryProvider.subCategoryList![index].image}',
                           );

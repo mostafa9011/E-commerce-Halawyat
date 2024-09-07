@@ -9,9 +9,11 @@ class SubCategoryWidget extends StatelessWidget {
     Key? key,
     required this.index,
     required this.image,
+    required this.categorId,
   }) : super(key: key);
   final int index;
   final String image;
+  final String categorId;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,8 @@ class SubCategoryWidget extends StatelessWidget {
         categoryProvider.parentProductList = null;
         Navigator.of(context).pushNamed(
           RouteHelper.getCategoryProductsRoute(
-            categoryId:
-                '${categoryProvider.categoryList![categoryProvider.categoryIndex].id}',
+            categoryId: categorId,
+            // '${categoryProvider.categoryList![categoryProvider.categoryIndex].id}',
           ),
         );
 

@@ -17,6 +17,8 @@ import 'package:flutter_grocery/utill/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
+import '../../splash/providers/splash_provider.dart';
+
 class CategoryProductScreen extends StatefulWidget {
   final String categoryId;
   final String? subCategoryName;
@@ -49,6 +51,31 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
     super.initState();
   }
 
+  String getCategoryImage(int categoryId) {
+    var categoryProvider =
+        Provider.of<CategoryProvider>(context, listen: false);
+    var categoryList = categoryProvider.categoryList;
+    var splashProvider = Provider.of<SplashProvider>(context, listen: false);
+
+    if (categoryList != null &&
+        categoryProvider.categoryAllProductList != null) {
+      for (var category in categoryList) {
+        if (category.id == categoryId) {
+          return '${splashProvider.baseUrls?.categoryImageUrl}/${category.image}';
+        }
+      }
+    }
+    if (categoryProvider.parentProductList != null) {
+      for (var category in categoryProvider.parentList!) {
+        if (category.id == categoryId) {
+          return '${AppConstants.imageBaseUrl}${category.image}';
+        }
+      }
+    }
+
+    return '';
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
@@ -75,7 +102,6 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
     //   appBarText = categoryProvider.categoryModel?.name ?? 'name';
     // }
     // categoryProvider.initializeAllSortBy(context);
-
     return Scaffold(
       appBar: (ResponsiveHelper.isDesktop(context)
           ? const PreferredSize(
@@ -159,11 +185,21 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         7),
-                                                            image: DecorationImage(
-                                                                image: NetworkImage(
-                                                                    '${AppConstants.imageBaseUrl}${categoryProvider.subCategoryList?[0].image}'),
-                                                                fit: BoxFit
-                                                                    .fitWidth),
+                                                            image:
+                                                                DecorationImage(
+                                                              image:
+                                                                  NetworkImage(
+                                                                // '${AppConstants.imageBaseUrl}${categoryProvider.subCategoryList?[0].image}'),
+                                                                getCategoryImage(
+                                                                  int.parse(
+                                                                    widget
+                                                                        .categoryId,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              fit: BoxFit
+                                                                  .fitWidth,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -333,11 +369,18 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                             right: Dimensions.paddingSizeSmall,
                                           ),
                                           decoration: BoxDecoration(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(7),
-                                          ),
+                                              borderRadius:
+                                                  BorderRadius.circular(7),
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                  getCategoryImage(
+                                                    int.parse(
+                                                      widget.categoryId,
+                                                    ),
+                                                  ),
+                                                ),
+                                                fit: BoxFit.fitWidth,
+                                              )),
                                         ),
                                       ),
                                       Padding(
