@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_grocery/common/models/api_response_model.dart';
 import 'package:flutter_grocery/common/models/product_model.dart';
@@ -6,6 +8,8 @@ import 'package:flutter_grocery/features/category/domain/models/category_model.d
 import 'package:flutter_grocery/features/category/domain/reposotories/category_repo.dart';
 import 'package:flutter_grocery/features/search/domain/reposotories/search_repo.dart';
 import 'package:flutter_grocery/helper/api_checker_helper.dart';
+
+import '../../../helper/route_helper.dart';
 
 class CategoryProvider extends ChangeNotifier {
   final CategoryRepo categoryRepo;
@@ -87,6 +91,20 @@ class CategoryProvider extends ChangeNotifier {
         apiResponse.response!.statusCode == 200) {
       subcategoryLoding = false;
       notifyListeners();
+      List<dynamic> subCategoryList = apiResponse.response!.data;
+      // go to all products
+      if (subCategoryList.isEmpty) {
+        log(categoryID);
+        parentProductList = null;
+        Navigator.of(context).pushNamed(
+          RouteHelper.getCategoryProductsRoute(
+            categoryId: categoryID,
+            // '${categoryProvider.categoryList![categoryProvider.categoryIndex].id}',
+          ),
+        );
+        onChangeSelectIndex(-1);
+        initCategoryProductList(categoryID);
+      }
       _subCategoryList = [];
       apiResponse.response!.data.forEach((category) =>
           _subCategoryList!.add(CategoryModel.fromJson(category)));

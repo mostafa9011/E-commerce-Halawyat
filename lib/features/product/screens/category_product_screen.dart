@@ -153,7 +153,8 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                                             -1);
                                                     productProvider
                                                         .initCategoryProductList(
-                                                            widget.categoryId);
+                                                      widget.categoryId,
+                                                    );
                                                   },
                                                   hoverColor:
                                                       Colors.transparent,
@@ -161,15 +162,16 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                                     children: [
                                                       Expanded(
                                                         child: Container(
-                                                          width:
-                                                              mediaQuery.width *
-                                                                  0.2,
                                                           margin:
                                                               const EdgeInsets
                                                                   .only(
                                                             right: Dimensions
                                                                 .paddingSizeSmall,
                                                           ),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical: 4),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: categoryProvider
@@ -185,20 +187,41 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         7),
-                                                            image:
-                                                                DecorationImage(
+                                                          ),
+                                                          child: Container(
+                                                            width: mediaQuery
+                                                                    .width *
+                                                                0.2,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: categoryProvider
+                                                                          .selectedCategoryIndex ==
+                                                                      -1
+                                                                  ? Theme.of(
+                                                                          context)
+                                                                      .primaryColor
+                                                                  : ColorResources
+                                                                      .getGreyColor(
+                                                                          context),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          7),
                                                               image:
-                                                                  NetworkImage(
-                                                                // '${AppConstants.imageBaseUrl}${categoryProvider.subCategoryList?[0].image}'),
-                                                                getCategoryImage(
-                                                                  int.parse(
-                                                                    widget
-                                                                        .categoryId,
+                                                                  DecorationImage(
+                                                                image:
+                                                                    NetworkImage(
+                                                                  // '${AppConstants.imageBaseUrl}${categoryProvider.subCategoryList?[0].image}'),
+                                                                  getCategoryImage(
+                                                                    int.parse(
+                                                                      widget
+                                                                          .categoryId,
+                                                                    ),
                                                                   ),
                                                                 ),
+                                                                fit: BoxFit
+                                                                    .fitWidth,
                                                               ),
-                                                              fit: BoxFit
-                                                                  .fitWidth,
                                                             ),
                                                           ),
                                                         ),
@@ -242,7 +265,8 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
 
                                                       productProvider
                                                           .initCategoryProductList(
-                                                              '${categoryProvider.subCategoryList![index].id}');
+                                                        '${categoryProvider.subCategoryList![index].id}',
+                                                      );
                                                     },
                                                     hoverColor:
                                                         Colors.transparent,
@@ -250,15 +274,17 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: Container(
-                                                            width: mediaQuery
-                                                                    .width *
-                                                                0.2,
                                                             margin:
                                                                 const EdgeInsets
                                                                     .only(
                                                               right: Dimensions
                                                                   .paddingSizeSmall,
                                                             ),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        4),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: categoryProvider
@@ -274,14 +300,35 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                                                   BorderRadius
                                                                       .circular(
                                                                           7),
-                                                              image:
-                                                                  DecorationImage(
+                                                            ),
+                                                            child: Container(
+                                                              width: mediaQuery
+                                                                      .width *
+                                                                  0.2,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: categoryProvider
+                                                                            .selectedCategoryIndex ==
+                                                                        index
+                                                                    ? Theme.of(
+                                                                            context)
+                                                                        .primaryColor
+                                                                    : ColorResources
+                                                                        .getGreyColor(
+                                                                            context),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            7),
                                                                 image:
-                                                                    NetworkImage(
-                                                                  '${AppConstants.imageBaseUrl}${categoryProvider.subCategoryList![index].image}',
+                                                                    DecorationImage(
+                                                                  image:
+                                                                      NetworkImage(
+                                                                    '${AppConstants.imageBaseUrl}${categoryProvider.subCategoryList![index].image}',
+                                                                  ),
+                                                                  fit: BoxFit
+                                                                      .fitWidth,
                                                                 ),
-                                                                fit: BoxFit
-                                                                    .fitWidth,
                                                               ),
                                                             ),
                                                           ),
@@ -349,7 +396,75 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                                   ),
                                 ),
                               )
-                            : const SubcategoryTitleShimmer()
+                            // : const SubcategoryTitleShimmer()
+                            : Padding(
+                                padding: const EdgeInsets.only(
+                                  left: Dimensions.paddingSizeDefault,
+                                ),
+                                child: InkWell(
+                                  onTap: () {},
+                                  hoverColor: Colors.transparent,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                            right: Dimensions.paddingSizeSmall,
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 4),
+                                          decoration: BoxDecoration(
+                                            color: categoryProvider
+                                                        .selectedCategoryIndex ==
+                                                    -1
+                                                ? Theme.of(context).primaryColor
+                                                : ColorResources.getGreyColor(
+                                                    context),
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                          ),
+                                          child: Container(
+                                            width: mediaQuery.width * 0.2,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(7),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    getCategoryImage(
+                                                      int.parse(
+                                                        widget.categoryId,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  fit: BoxFit.fitWidth,
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            right:
+                                                Dimensions.paddingSizeDefault *
+                                                    1.8),
+                                        child: Text(
+                                          getTranslated('all', context),
+                                          style: poppinsRegular.copyWith(
+                                            color: categoryProvider
+                                                        .selectedCategoryIndex ==
+                                                    -1
+                                                ? Theme.of(context)
+                                                    .primaryColor //canvasColor
+                                                : Colors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
                         : productProvider.parentProductList != null
                             ? Padding(
                                 padding: const EdgeInsets.only(

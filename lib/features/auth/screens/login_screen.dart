@@ -259,28 +259,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
 
-                        //  // forget password 
-                        //   InkWell(
-                        //     onTap: () {
-                        //       Navigator.of(context).pushNamed(
-                        //           RouteHelper.forgetPassword,
-                        //           arguments: const ForgotPasswordScreen());
-                        //     },
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.all(8.0),
-                        //       child: Text(
-                        //         getTranslated('forgot_password', context),
-                        //         style: Theme.of(context)
-                        //             .textTheme
-                        //             .displayMedium!
-                        //             .copyWith(
-                        //                 fontSize: Dimensions.fontSizeSmall,
-                        //                 color: Theme.of(context)
-                        //                     .hintColor
-                        //                     .withOpacity(0.6)),
-                        //       ),
-                        //     ),
-                        //   ),
+                          //  // forget password
+                          //   InkWell(
+                          //     onTap: () {
+                          //       Navigator.of(context).pushNamed(
+                          //           RouteHelper.forgetPassword,
+                          //           arguments: const ForgotPasswordScreen());
+                          //     },
+                          //     child: Padding(
+                          //       padding: const EdgeInsets.all(8.0),
+                          //       child: Text(
+                          //         getTranslated('forgot_password', context),
+                          //         style: Theme.of(context)
+                          //             .textTheme
+                          //             .displayMedium!
+                          //             .copyWith(
+                          //                 fontSize: Dimensions.fontSizeSmall,
+                          //                 color: Theme.of(context)
+                          //                     .hintColor
+                          //                     .withOpacity(0.6)),
+                          //       ),
+                          //     ),
+                          //   ),
                         ],
                       ),
                       const SizedBox(height: Dimensions.paddingSizeSmall),
@@ -493,7 +493,10 @@ class _LoginScreenState extends State<LoginScreen> {
           }
 
           Navigator.pushNamedAndRemoveUntil(
-              context, RouteHelper.menu, (route) => false);
+            context,
+            RouteHelper.menu,
+            (route) => false,
+          );
         }
       });
     }

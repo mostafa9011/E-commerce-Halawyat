@@ -35,6 +35,8 @@ class HomeScreen extends StatefulWidget {
 
   static Future<void> loadData(bool reload, BuildContext context,
       {bool fromLanguage = false}) async {
+    _initializeApp(context); // Pop-up image
+    
     final productProvider =
         Provider.of<ProductProvider>(context, listen: false);
     final flashDealProvider =
@@ -92,18 +94,9 @@ class HomeScreen extends StatefulWidget {
       reload,
     );
   }
-}
 
-class _HomeScreenState extends State<HomeScreen> {
-  final ScrollController scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeApp(); // Automatically call this function when the app starts
-  }
-
-  void _initializeApp() {
+  // Pop-up image
+  static void _initializeApp(BuildContext context) {
     // Using addPostFrameCallback to show dialog after build is complete
     WidgetsBinding.instance.addPostFrameCallback((_) {
       String? popupImage =
@@ -118,6 +111,37 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
   }
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final ScrollController scrollController = ScrollController();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _initializeApp(); // Pop-up image
+  // }
+  // @override
+  // didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   _initializeApp(); // Pop-up image
+  // }
+
+  // void _initializeApp(BuildContext context) {
+  //   // Using addPostFrameCallback to show dialog after build is complete
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     String? popupImage =
+  //         Provider.of<SplashProvider>(context, listen: false).popupModel!.image;
+
+  //     int popup = Provider.of<SplashProvider>(context, listen: false)
+  //         .configModel!
+  //         .isPopup!;
+
+  //     if (popup == 1) {
+  //       showImageDialog(context, popupImage); // Show the pop-up with an image
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

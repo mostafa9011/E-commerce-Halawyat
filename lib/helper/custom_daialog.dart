@@ -8,13 +8,14 @@ void showImageDialog(BuildContext context, String? popupImage) {
     builder: (BuildContext context) {
       var mediaQuery = MediaQuery.of(context).size;
       return Dialog(
+        insetPadding: const EdgeInsets.symmetric(horizontal: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         child: SizedBox(
-          height: mediaQuery.height * 0.5,
+          height: mediaQuery.height * 0.95,
           child: Column(
             children: [
               Expanded(
