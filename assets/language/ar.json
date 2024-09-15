@@ -275,6 +275,7 @@
     "failed_to_fetch_distance": "فشل في جلب المسافة",
     "delivery_fee_from_your_selected_address_to_branch": "رسوم التسليم من عنوانك المختار إلى الفرع",
     "minimum_order_amount_is": "الحد الأدنى لمبلغ الطلب",
+    "minimum_order_value_is":"الحد الادني لعدد الاصناف هو ",
     "in_your_cart_please_add_more_item": "في عربة التسوق الخاصة بك ، يرجى إضافة المزيد من العناصر.",
     "you_have": "لديك",
     "chat_with_delivery_man": "الدردشة مع رجل التسليم",

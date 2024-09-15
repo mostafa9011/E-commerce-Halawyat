@@ -275,6 +275,7 @@
     "failed_to_fetch_distance": "দূরত্ব আনতে ব্যর্থ",
     "delivery_fee_from_your_selected_address_to_branch": "আপনার নির্বাচিত ঠিকানা থেকে শাখায় ডেলিভারি ফি",
     "minimum_order_amount_is": "সর্বনিম্ন অর্ডার পরিমাণ হয়",
+    "minimum_order_value_is": "সর্বনিম্ন অর্ডার মূল্য হয়",
     "in_your_cart_please_add_more_item": "আপনার কার্টে, আরও আইটেম যুক্ত করুন।",
     "you_have": "তোমার আছে",
     "chat_with_delivery_man": "ডেলিভারি ম্যানের সাথে চ্যাট করুন",

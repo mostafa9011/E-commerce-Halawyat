@@ -96,7 +96,7 @@ class CategoryProvider extends ChangeNotifier {
       if (subCategoryList.isEmpty) {
         log(categoryID);
         parentProductList = null;
-        Navigator.of(context).pushNamed(
+        Navigator.of(context).pushReplacementNamed(
           RouteHelper.getCategoryProductsRoute(
             categoryId: categoryID,
             // '${categoryProvider.categoryList![categoryProvider.categoryIndex].id}',

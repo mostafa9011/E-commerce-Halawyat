@@ -21,9 +21,14 @@ class CartButtonWidget extends StatelessWidget {
     required double total,
     required double deliveryCharge,
     required bool isFreeDelivery,
-  }) : _subTotal = subTotal, _configModel = configModel,
-        _isFreeDelivery = isFreeDelivery, _itemPrice = itemPrice,
-        _total = total, _deliveryCharge = deliveryCharge, super(key: key);
+    required this.minimumOrderCount,
+  })  : _subTotal = subTotal,
+        _configModel = configModel,
+        _isFreeDelivery = isFreeDelivery,
+        _itemPrice = itemPrice,
+        _total = total,
+        _deliveryCharge = deliveryCharge,
+        super(key: key);
 
   final double _subTotal;
   final ConfigModel _configModel;
@@ -31,50 +36,73 @@ class CartButtonWidget extends StatelessWidget {
   final double _total;
   final bool _isFreeDelivery;
   final double _deliveryCharge;
+  final int minimumOrderCount;
 
   @override
   Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        width: 1170,
+        padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
+        child: Column(children: [
+          Consumer<CouponProvider>(builder: (context, couponProvider, _) {
+            return couponProvider.coupon?.couponType == 'free_delivery'
+                ? const SizedBox()
+                : FreeDeliveryProgressBarWidget(
+                    subTotal: _subTotal, configModel: _configModel);
+          }),
+          CustomButtonWidget(
+            buttonText: getTranslated('proceed_to_checkout', context),
+            onPressed: () {
+              if (_itemPrice < _configModel.minimumOrderValue!) {
+                showCustomSnackBarHelper(
+                  ' ${getTranslated('minimum_order_amount_is', context)} ${PriceConverterHelper.convertPrice(context, _configModel.minimumOrderValue)} , ${getTranslated('you_have', context)} ${PriceConverterHelper.convertPrice(context, _itemPrice)} ${getTranslated('in_your_cart_please_add_more_item', context)}',
+                  isError: true,
+                );
+              } else if (minimumOrderCount < _configModel.minimumOrderCount!) {
+                showCustomSnackBarHelper(
+                  ' ${getTranslated('minimum_order_value_is', context)} ${_configModel.minimumOrderCount} , ${getTranslated('you_have', context)} $minimumOrderCount ${getTranslated('in_your_cart_please_add_more_item', context)}',
+                  isError: true,
+                );
+              } else {
+                String? orderType =
+                    Provider.of<OrderProvider>(context, listen: false)
+                        .orderType;
+                double? discount =
+                    Provider.of<CouponProvider>(context, listen: false)
+                        .discount;
 
-
-    return SafeArea(child: Container(
-      width: 1170,
-      padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-      child: Column(children: [
-
-        Consumer<CouponProvider>(
-            builder: (context, couponProvider, _) {
-              return couponProvider.coupon?.couponType == 'free_delivery'
-                  ? const SizedBox() :
-              FreeDeliveryProgressBarWidget(subTotal: _subTotal, configModel: _configModel);
-            }
-        ),
-
-        CustomButtonWidget(
-          buttonText: getTranslated('proceed_to_checkout', context),
-          onPressed: () {
-            if(_itemPrice < _configModel.minimumOrderValue!) {
-              showCustomSnackBarHelper(' ${getTranslated('minimum_order_amount_is', context)} ${PriceConverterHelper.convertPrice(context, _configModel.minimumOrderValue)
-              }, ${getTranslated('you_have', context)} ${PriceConverterHelper.convertPrice(context, _itemPrice)} ${getTranslated('in_your_cart_please_add_more_item', context)}', isError: true);
-            } else {
-              String? orderType = Provider.of<OrderProvider>(context, listen: false).orderType;
-              double? discount = Provider.of<CouponProvider>(context, listen: false).discount;
-              Navigator.pushNamed(
-                context, RouteHelper.getCheckoutRoute(
-                _total, discount, orderType,
-                Provider.of<CouponProvider>(context, listen: false).coupon?.code ?? '',
-                _isFreeDelivery ? 'free_delivery' : '' , _deliveryCharge,
-              ),
-                arguments: CheckoutScreen(
-                  amount: _total, orderType: orderType, discount: discount,
-                  couponCode: Provider.of<CouponProvider>(context, listen: false).coupon?.code,
-                  freeDeliveryType:  _isFreeDelivery ? 'free_delivery' : '',
-                  deliveryCharge: _deliveryCharge,
-                ),
-              );
-            }
-          },
-        ),
-      ]),
-    ));
+                // Navigate to checkout
+                Navigator.pushNamed(
+                  context,
+                  RouteHelper.getCheckoutRoute(
+                    _total,
+                    discount,
+                    orderType,
+                    Provider.of<CouponProvider>(context, listen: false)
+                            .coupon
+                            ?.code ??
+                        '',
+                    _isFreeDelivery ? 'free_delivery' : '',
+                    _deliveryCharge,
+                  ),
+                  arguments: CheckoutScreen(
+                    amount: _total,
+                    orderType: orderType,
+                    discount: discount,
+                    couponCode:
+                        Provider.of<CouponProvider>(context, listen: false)
+                            .coupon
+                            ?.code,
+                    freeDeliveryType: _isFreeDelivery ? 'free_delivery' : '',
+                    deliveryCharge: _deliveryCharge,
+                  ),
+                );
+              }
+            },
+          ),
+        ]),
+      ),
+    );
   }
 }
