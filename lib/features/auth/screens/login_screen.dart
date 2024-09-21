@@ -4,6 +4,7 @@ import 'package:flutter_grocery/common/enums/footer_type_enum.dart';
 import 'package:flutter_grocery/common/models/config_model.dart';
 import 'package:flutter_grocery/common/widgets/custom_pop_scope_widget.dart';
 import 'package:flutter_grocery/features/auth/domain/models/user_log_data.dart';
+import 'package:flutter_grocery/helper/custom_daialog.dart';
 import 'package:flutter_grocery/helper/email_checker_helper.dart';
 import 'package:flutter_grocery/helper/responsive_helper.dart';
 import 'package:flutter_grocery/helper/route_helper.dart';
@@ -497,6 +498,8 @@ class _LoginScreenState extends State<LoginScreen> {
             RouteHelper.menu,
             (route) => false,
           );
+          // show pop-up
+          isLogIN = true;
         }
       });
     }

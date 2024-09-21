@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_grocery/common/models/api_response_model.dart';
 import 'package:flutter_grocery/common/models/config_model.dart';
 import 'package:flutter_grocery/common/models/popup_model.dart';
@@ -9,6 +12,7 @@ import 'package:flutter_grocery/main.dart';
 import 'package:flutter_grocery/features/auth/providers/auth_provider.dart';
 import 'package:flutter_grocery/utill/app_constants.dart';
 import 'package:flutter_grocery/helper/custom_snackbar_helper.dart';
+import 'package:flutter_grocery/utill/functions/show_pop_up_dialog.dart';
 import 'package:provider/provider.dart';
 
 class SplashProvider extends ChangeNotifier {
@@ -153,4 +157,5 @@ class SplashProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
 }

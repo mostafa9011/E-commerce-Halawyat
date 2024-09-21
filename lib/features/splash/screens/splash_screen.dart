@@ -14,6 +14,8 @@ import 'package:flutter_grocery/utill/images.dart';
 import 'package:flutter_grocery/features/onboarding/screens/on_boarding_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../helper/custom_daialog.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -101,6 +103,8 @@ class _SplashScreenState extends State<SplashScreen> {
               Provider.of<AuthProvider>(context, listen: false).updateToken();
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(RouteHelper.menu, (route) => false);
+              // show pop-up
+              isLogIN = true;
             } else {
               if (Provider.of<SplashProvider>(context, listen: false)
                   .showIntro()) {

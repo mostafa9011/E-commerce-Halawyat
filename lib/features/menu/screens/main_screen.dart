@@ -38,6 +38,7 @@ import 'package:provider/provider.dart';
 import '../../../common/widgets/custom_asset_image_widget.dart';
 import '../../../common/widgets/custom_image_widget.dart';
 import '../../../utill/color_resources.dart';
+import '../../../utill/functions/show_pop_up_dialog.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../notification/screens/notification_screen.dart';
 import '../../profile/screens/profile_screen.dart';
@@ -207,65 +208,64 @@ class _MainScreenState extends State<MainScreen> {
                                   ),
                             actions: //splash.pageIndex == 0
                                 // ?
-                            [
-                                    IconButton(
-                                      icon: Image.asset(Images.search,
-                                          color: Theme.of(context).primaryColor,
-                                          width: 25),
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, RouteHelper.searchProduct);
-                                      },
+                                [
+                              IconButton(
+                                icon: Image.asset(Images.search,
+                                    color: Theme.of(context).primaryColor,
+                                    width: 25),
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, RouteHelper.searchProduct);
+                                },
+                              ),
+                              IconButton(
+                                  icon:
+                                      Stack(clipBehavior: Clip.none, children: [
+                                    Icon(Icons.shopping_cart,
+                                        color: Theme.of(context)
+                                            .hintColor
+                                            .withOpacity(
+                                                isDarkTheme ? 0.9 : 0.4),
+                                        size: 30),
+                                    Positioned(
+                                      top: -7,
+                                      right: -2,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        child: Text(
+                                            '${Provider.of<CartProvider>(context).cartList.length}',
+                                            style: TextStyle(
+                                                color:
+                                                    Theme.of(context).cardColor,
+                                                fontSize: 10)),
+                                      ),
                                     ),
-                                    IconButton(
-                                        icon: Stack(
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              Icon(Icons.shopping_cart,
-                                                  color: Theme.of(context)
-                                                      .hintColor
-                                                      .withOpacity(isDarkTheme
-                                                          ? 0.9
-                                                          : 0.4),
-                                                  size: 30),
-                                              Positioned(
-                                                top: -7,
-                                                right: -2,
-                                                child: Container(
-                                                  padding:
-                                                      const EdgeInsets.all(6),
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: Theme.of(context)
-                                                          .primaryColor),
-                                                  child: Text(
-                                                      '${Provider.of<CartProvider>(context).cartList.length}',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .cardColor,
-                                                          fontSize: 10)),
-                                                ),
-                                              ),
-                                            ]),
-                                        onPressed: () {
-                                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CartScreen(),));
-                                        }),
-                                  ],
-                                // : splash.pageIndex == 2
-                                //     ? [
-                                //         Center(child: Consumer<CartProvider>(
-                                //             builder:
-                                //                 (context, cartProvider, _) {
-                                //           return Text(
-                                //               '${cartProvider.cartList.length} ${getTranslated('items', context)}',
-                                //               style: poppinsMedium.copyWith(
-                                //                   color: Theme.of(context)
-                                //                       .primaryColor));
-                                //         })),
-                                //         const SizedBox(width: 20)
-                                //       ]
-                                //     : null,
+                                  ]),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => const CartScreen(),
+                                    ));
+                                  }),
+                            ],
+                            // : splash.pageIndex == 2
+                            //     ? [
+                            //         Center(child: Consumer<CartProvider>(
+                            //             builder:
+                            //                 (context, cartProvider, _) {
+                            //           return Text(
+                            //               '${cartProvider.cartList.length} ${getTranslated('items', context)}',
+                            //               style: poppinsMedium.copyWith(
+                            //                   color: Theme.of(context)
+                            //                       .primaryColor));
+                            //         })),
+                            //         const SizedBox(width: 20)
+                            //       ]
+                            //     : null,
                           ),
                     body: _bottomNavScreens[_selectedIndex],
                     bottomNavigationBar: BottomNavigationBar(
@@ -323,59 +323,121 @@ class MoreScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-
-              if (index == 0)Consumer<ProfileProvider>(
-                builder: (context, profileProvider, child) => Row(
-                  children: [
-                    Expanded(
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(RouteHelper.profile, arguments: const ProfileScreen());
-                        },
-                        leading: ClipOval(
-                          child: isLoggedIn ? splashProvider.baseUrls != null ?
-                          CustomImageWidget(
-                            placeholder: Images.profile,
-                            image: '${splashProvider.baseUrls?.customerImageUrl}/${profileProvider.userInfoModel?.image}',
-                            height: 50, width: 50, fit: BoxFit.cover,
-                          ) : const SizedBox() : Image.asset(Images.profile, height: 50, width: 50, fit: BoxFit.cover),
+              if (index == 0)
+                Consumer<ProfileProvider>(
+                  builder: (context, profileProvider, child) => Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(RouteHelper.profile,
+                                arguments: const ProfileScreen());
+                          },
+                          leading: ClipOval(
+                            child: isLoggedIn
+                                ? splashProvider.baseUrls != null
+                                    ? CustomImageWidget(
+                                        placeholder: Images.profile,
+                                        image:
+                                            '${splashProvider.baseUrls?.customerImageUrl}/${profileProvider.userInfoModel?.image}',
+                                        height: 50,
+                                        width: 50,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const SizedBox()
+                                : Image.asset(Images.profile,
+                                    height: 50, width: 50, fit: BoxFit.cover),
+                          ),
+                          title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                isLoggedIn
+                                    ? profileProvider.userInfoModel != null
+                                        ? Text(
+                                            '${profileProvider.userInfoModel!.fName ?? ''} ${profileProvider.userInfoModel!.lName ?? ''}',
+                                            style: poppinsRegular.copyWith(
+                                              color: Provider.of<ThemeProvider>(
+                                                          context)
+                                                      .darkTheme
+                                                  ? Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.color
+                                                      ?.withOpacity(0.6)
+                                                  : ResponsiveHelper.isDesktop(
+                                                          context)
+                                                      ? ColorResources
+                                                          .getDarkColor(context)
+                                                      : Theme.of(context)
+                                                          .primaryColor,
+                                            ),
+                                          )
+                                        : Container(
+                                            height: 10,
+                                            width: 150,
+                                            color: ResponsiveHelper
+                                                    .isDesktop(context)
+                                                ? ColorResources.getDarkColor(
+                                                    context)
+                                                : Theme.of(context).canvasColor)
+                                    : Text(
+                                        getTranslated('guest', context),
+                                        style: poppinsRegular.copyWith(
+                                          color: Provider.of<ThemeProvider>(
+                                                      context)
+                                                  .darkTheme
+                                              ? Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.color
+                                                  ?.withOpacity(0.6)
+                                              : ResponsiveHelper.isDesktop(
+                                                      context)
+                                                  ? ColorResources.getDarkColor(
+                                                      context)
+                                                  : Theme.of(context)
+                                                      .primaryColor,
+                                        ),
+                                      ),
+                                if (isLoggedIn)
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeSmall),
+                                if (isLoggedIn &&
+                                    profileProvider.userInfoModel != null)
+                                  Text(
+                                      profileProvider.userInfoModel!.phone ??
+                                          '',
+                                      style: poppinsRegular.copyWith(
+                                        color:
+                                            Provider.of<ThemeProvider>(context)
+                                                    .darkTheme
+                                                ? Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.color
+                                                    ?.withOpacity(0.6)
+                                                : ResponsiveHelper.isDesktop(
+                                                        context)
+                                                    ? ColorResources
+                                                        .getDarkColor(context)
+                                                    : Theme.of(context)
+                                                        .primaryColor,
+                                      )),
+                              ]),
                         ),
-                        title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
-                          isLoggedIn ? profileProvider.userInfoModel != null ? Text(
-                            '${profileProvider.userInfoModel!.fName ?? ''} ${profileProvider.userInfoModel!.lName ?? ''}',
-                            style: poppinsRegular.copyWith(color: Provider.of<ThemeProvider>(context).darkTheme
-                                ? Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.6)
-                                : ResponsiveHelper.isDesktop(context)? ColorResources.getDarkColor(context): Theme.of(context).primaryColor,),
-                          ) : Container(height: 10, width: 150, color: ResponsiveHelper.isDesktop(context)? ColorResources.getDarkColor(context): Theme.of(context).canvasColor) : Text(
-                            getTranslated('guest', context),
-                            style: poppinsRegular.copyWith( color: Provider.of<ThemeProvider>(context).darkTheme
-                                ? Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.6)
-                                : ResponsiveHelper.isDesktop(context)? ColorResources.getDarkColor(context): Theme.of(context).primaryColor,),
-                          ),
-                          if(isLoggedIn) const SizedBox(height: Dimensions.paddingSizeSmall),
-
-                          if(isLoggedIn && profileProvider.userInfoModel != null ) Text(
-                              profileProvider.userInfoModel!.phone ?? '',
-                              style: poppinsRegular.copyWith(color: Provider.of<ThemeProvider>(context).darkTheme
-                                  ? Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.6)
-                                  : ResponsiveHelper.isDesktop(context)? ColorResources.getDarkColor(context): Theme.of(context).primaryColor,)
-                          ),
-                        ]),
                       ),
-                    ),
-                    // IconButton(
-                    //   icon: Icon(Icons.notifications,
-                    //       color: Provider.of<ThemeProvider>(context).darkTheme
-                    //           ? Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.6)
-                    //           : ResponsiveHelper.isDesktop(context)? ColorResources.getDarkColor(context):  Theme.of(context).canvasColor),
-                    //   onPressed: () {
-                    //     Navigator.pushNamed(context, RouteHelper.notification, arguments: const NotificationScreen());
-                    //   },
-                    // ),
-                  ],
+                      // IconButton(
+                      //   icon: Icon(Icons.notifications,
+                      //       color: Provider.of<ThemeProvider>(context).darkTheme
+                      //           ? Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.6)
+                      //           : ResponsiveHelper.isDesktop(context)? ColorResources.getDarkColor(context):  Theme.of(context).canvasColor),
+                      //   onPressed: () {
+                      //     Navigator.pushNamed(context, RouteHelper.notification, arguments: const NotificationScreen());
+                      //   },
+                      // ),
+                    ],
+                  ),
                 ),
-              ),
               ListTile(
                 leading: screenList[index]
                         .icon

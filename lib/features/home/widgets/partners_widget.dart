@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_grocery/utill/functions/show_pop_up_dialog.dart';
 import 'package:provider/provider.dart';
 import '../../../common/widgets/custom_loader_widget.dart';
 import '../../category/providers/category_provider.dart';
@@ -9,6 +10,8 @@ class PartnersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // show pop-up
+    showPopUpDialog(context);
     return Consumer<CategoryProvider>(
       builder: (context, categoryProvider, child) {
         return categoryProvider.parentList != null

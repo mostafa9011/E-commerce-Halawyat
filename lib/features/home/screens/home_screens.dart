@@ -24,6 +24,7 @@ import 'package:flutter_grocery/utill/dimensions.dart';
 import 'package:flutter_grocery/utill/product_type.dart';
 import 'package:provider/provider.dart';
 import '../../../helper/custom_daialog.dart';
+import '../../../utill/functions/show_pop_up_dialog.dart';
 import '../../category/widgets/parent_screen.dart';
 import '../widgets/partners_widget.dart';
 
@@ -33,10 +34,11 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 
-  static Future<void> loadData(bool reload, BuildContext context,
-      {bool fromLanguage = false}) async {
-    _initializeApp(context); // Pop-up image
-    
+  static Future<void> loadData(
+    bool reload,
+    BuildContext context, {
+    bool fromLanguage = false,
+  }) async {
     final productProvider =
         Provider.of<ProductProvider>(context, listen: false);
     final flashDealProvider =
@@ -94,60 +96,28 @@ class HomeScreen extends StatefulWidget {
       reload,
     );
   }
-
-  // Pop-up image
-  static void _initializeApp(BuildContext context) {
-    // Using addPostFrameCallback to show dialog after build is complete
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      String? popupImage =
-          Provider.of<SplashProvider>(context, listen: false).popupModel!.image;
-
-      int popup = Provider.of<SplashProvider>(context, listen: false)
-          .configModel!
-          .isPopup!;
-
-      if (popup == 1) {
-        showImageDialog(context, popupImage); // Show the pop-up with an image
-      }
-    });
-  }
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController scrollController = ScrollController();
 
   // @override
-  // void initState() {
-  //   super.initState();
-  //   _initializeApp(); // Pop-up image
-  // }
-  // @override
   // didChangeDependencies() {
+  //   // var splashProvider = Provider.of<SplashProvider>(context);
+  //   // splashProvider.showPopUpDialogOnce(context);
+
   //   super.didChangeDependencies();
-  //   _initializeApp(); // Pop-up image
-  // }
-
-  // void _initializeApp(BuildContext context) {
-  //   // Using addPostFrameCallback to show dialog after build is complete
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     String? popupImage =
-  //         Provider.of<SplashProvider>(context, listen: false).popupModel!.image;
-
-  //     int popup = Provider.of<SplashProvider>(context, listen: false)
-  //         .configModel!
-  //         .isPopup!;
-
-  //     if (popup == 1) {
-  //       showImageDialog(context, popupImage); // Show the pop-up with an image
-  //     }
-  //   });
+  //   showPopUpDialog(context);
   // }
 
   @override
   Widget build(BuildContext context) {
     var categoryProvider = Provider.of<CategoryProvider>(context);
+    // var splashProvider = Provider.of<SplashProvider>(context);
     return Consumer<SplashProvider>(
       builder: (context, splashProvider, child) {
+        // show pop-up dialog
+        // splashProvider.showPopUpDialogOnce(context);
         return RefreshIndicator(
           onRefresh: () async {
             await HomeScreen.loadData(true, context);
@@ -311,3 +281,83 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
+// class HomeScreen extends StatefulWidget {
+//   const HomeScreen({Key? key}) : super(key: key);
+//   static Future<void> loadData(bool reload, BuildContext context,
+//       {bool fromLanguage = false}) async {
+//     final productProvider =
+//         Provider.of<ProductProvider>(context, listen: false);
+//     final flashDealProvider =
+//         Provider.of<FlashDealProvider>(context, listen: false);
+//     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+//     final withLListProvider =
+//         Provider.of<WishListProvider>(context, listen: false);
+//     final localizationProvider =
+//         Provider.of<LocalizationProvider>(context, listen: false);
+
+//     ConfigModel config =
+//         Provider.of<SplashProvider>(context, listen: false).configModel!;
+//     if (reload) {
+//       Provider.of<SplashProvider>(context, listen: false).initConfig();
+//     }
+//     if (fromLanguage &&
+//         (authProvider.isLoggedIn() || config.isGuestCheckout!)) {
+//       localizationProvider.changeLanguage();
+//     }
+//     Provider.of<CategoryProvider>(context, listen: false)
+//         .getCategoryList(context, reload);
+
+//     Provider.of<BannerProvider>(context, listen: false)
+//         .getBannerList(context, reload);
+
+//     if (productProvider.dailyProductModel == null) {
+//       productProvider.getItemList(1,
+//           isUpdate: false, productType: ProductType.dailyItem);
+//     }
+
+//     if (productProvider.featuredProductModel == null) {
+//       productProvider.getItemList(1,
+//           isUpdate: false, productType: ProductType.featuredItem);
+//     }
+
+//     if (productProvider.mostViewedProductModel == null) {
+//       productProvider.getItemList(1,
+//           isUpdate: false, productType: ProductType.mostReviewed);
+//     }
+
+//     productProvider.getAllProductList(1, reload, isUpdate: false);
+
+//     if (authProvider.isLoggedIn()) {
+//       withLListProvider.getWishListProduct();
+//     }
+
+//     if ((config.flashDealProductStatus ?? false) &&
+//         flashDealProvider.flashDealModel == null) {
+//       flashDealProvider.getFlashDealProducts(1, isUpdate: false);
+//     }
+
+//     // Parent Category
+//     Provider.of<CategoryProvider>(context, listen: false).getParentList(
+//       context,
+//       reload,
+//     );
+//   }
+
+//   @override
+//   State<HomeScreen> createState() => _HomeScreenState();
+// }
+
+// class _HomeScreenState extends State<HomeScreen> {
+//   bool isFirstTime = true;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Provider.of<SplashProvider>(context, listen: false).isFirstTime(context);
+//     return const Center(
+//       child: Text('Home Screen'),
+//     );
+//   }
+// }
